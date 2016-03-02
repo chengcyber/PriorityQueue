@@ -14,6 +14,8 @@
 #include "vector.h"
 #include "disallowcopy.h"
 
+
+
 /*
  * Class: PQueue
  * -------------
@@ -23,18 +25,21 @@
  * The elements are integers and the integer is assumed to represent 
  * the priority (larger integer is higher priority).
  */
+template <typename EleType>
 class PQueue 
 {
   public:
 
+  	typedef int (*compare)(EleType &e1, EleType &e2);
 	/*
 	 * Constructor: PQueue
 	 * Usage: PQueue pq;
 	 *        PQueue *ppq = new PQueue;
 	 * ---------------------------------
-	 * Initializes a new pqueue to have no elements.  
+	 * Initializes a new pqueue to have no elements.
 	 */
 	PQueue();
+	PQueue(compare cmp);
 
 
 	/*
@@ -71,7 +76,7 @@ class PQueue
 	 * Adds the specified element to this pqueue. No effort is made to
 	 * avoid duplicates. 
 	 */
-	void enqueue(int newElem);
+	void enqueue(EleType newElem);
 
 
 	/*
@@ -81,7 +86,7 @@ class PQueue
 	 * Removes the largest priority element from this pqueue and returns it.
 	 * If this pqueue is empty, this function raises an error.
 	 */
-	int dequeueMax();
+	EleType dequeueMax();
 
 
 	/*
@@ -122,6 +127,8 @@ class PQueue
 	 */
 	void printDebuggingInfo();
 
+
+
   private:
   
 	// If implemented using Vector data mamber, default memberwise copy 
@@ -152,12 +159,14 @@ class PQueue
  //  	void expandChunk(Cell *cl);
 
 	/* This is the representation for the sorted heap */
-	Vector<int> heap;
+	Vector<EleType> heap;
  	void heapinserted();
  	void heapremoved(int father);
- 	void swap(Vector<int> &vec, int x, int y);
+ 	void swap(Vector<EleType> &vec, int x, int y);
+ 	compare *cmp;
 
 };
 
+#include "pqheapimp.cpp"
 
 #endif
