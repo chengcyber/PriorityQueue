@@ -163,7 +163,7 @@ class PQueue
  	void heapinserted();
  	void heapremoved(int father);
  	void swap(Vector<EleType> &vec, int x, int y);
- 	compare *cmp;
+ 	compare cmp;
 
 };
 

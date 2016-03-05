@@ -12,11 +12,11 @@
 using namespace std;
 
 template <typename EleType>
-int orginalCompare(EleType &e1, EleType &e2)
+static int orginalCompare(EleType &e1, EleType &e2)
 {
-	if(e1 == e2) return 0;
 	if(e1 < e2) return -1;
 	if(e1 > e2) return 1;
+	return 0;
 }
 
 /* Implementation notes: PQueue class
@@ -41,7 +41,7 @@ PQueue<EleType>::PQueue(compare cmp)
 template <typename EleType>
 PQueue<EleType>::~PQueue()
 {
-	delete cmp;
+	
 }
 template <typename EleType>
 bool PQueue<EleType>::isEmpty()
@@ -103,7 +103,7 @@ void PQueue<EleType>::heapinserted()
 	int child = heap.size();
 	while(true) {
 		int father = child / 2 ;
-		if(heap[child - 1] > heap[father - 1]) 
+		if(cmp(heap[child - 1], heap[father - 1]) > 0)
 			swap(heap, father - 1, child - 1);
 		child = father;
 		if(child == 1) break;
@@ -116,19 +116,19 @@ void PQueue<EleType>::heapremoved(int father)
 	int right = 2 * father + 1;
 	if (left > heap.size() || right > heap.size()) return;
 	if(left == heap.size()) {
-		if(heap[father - 1] > heap[left - 1]) {
+		if(cmp(heap[father - 1], heap[left - 1]) > 0) {
 			swap(heap, father, left);
 			heapremoved(left);
 		}
 	} else {
-		if(heap[left - 1] >= heap[right - 1]) {
-			if(heap[father - 1] < heap[left - 1]) {
+		if(cmp(heap[left - 1], heap[right - 1]) >= 0) {
+			if(cmp(heap[father - 1], heap[left - 1]) < 0) {
 				swap(heap, father - 1, left - 1);
 				heapremoved(left);
 			}
 		}
 		else {
-			if(heap[father - 1] < heap[right - 1]) {
+			if(cmp(heap[father - 1], heap[right - 1]) < 0) {
 				swap(heap, father - 1, right - 1);
 				heapremoved(right);
 			}

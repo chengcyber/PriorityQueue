@@ -16,6 +16,13 @@
 
 bool ArrayIsSorted(int array[], int size);
 
+int reverseCompare(int &e1, int &e2)
+{
+	if(e1 > e2) return -1;
+	if(e1 < e2) return 1;
+	return 0;
+}
+
 
 /*
  * Function: BasicPQueueTest
@@ -26,7 +33,7 @@ bool ArrayIsSorted(int array[], int size);
  */
 void BasicPQueueTest()
 {
-	PQueue pq;
+	PQueue<int> pq(reverseCompare);
 	
 	cout << boolalpha;	// configure stream to print booleans as true/false instead of 1/0
 	cout << endl << "-----------   Testing Basic PQueue functions -----------" << endl;
@@ -66,7 +73,7 @@ void BasicPQueueTest()
  */
 void MorePQueueTest()
 {
-	PQueue pq;
+	PQueue<int> pq(reverseCompare);
 	
 	cout << boolalpha;
 	cout << endl << "-----------   More pqueue testing functions -----------" << endl;
@@ -151,7 +158,7 @@ void PQueueSortTest()
 
 void PQSort(int array[], int nElems)
 {
-	PQueue pq;
+	PQueue<int> pq(reverseCompare);
 	for (int i = 0; i < nElems; i++)	
 		pq.enqueue(array[i]);
 	for (int i = nElems-1; i >= 0; i--)

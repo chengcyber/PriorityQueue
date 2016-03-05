@@ -166,10 +166,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\pqheap.cpp"
-			>
-		</File>
-		<File
 			RelativePath=".\PQmain.cpp"
 			>
 		</File>
